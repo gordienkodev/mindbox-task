@@ -1,33 +1,59 @@
 import "./App.css";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import '@fontsource/lato/100.css'; 
+import "@fontsource/roboto/100.css";
+import TodoInput from "./components/TodoInput";
+import { Stack } from "@mui/material";
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'Lato',
+    fontFamily: "Roboto, sans-serif",
     h1: {
       fontWeight: 100,
       color: "#E9DAD9",
-      fontSize: '10rem',
+      fontSize: "10rem",
     },
   },
-  palette: {
-    primary: {
-      main: '#FEFEFE',
+  components: {
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          fontSize: "3rem",
+          "&::placeholder": {
+            fontStyle: "italic",
+            color: "#E5E5E5",
+          },
+          background: '#FEFEFE'
+        },
+      },
     },
-    secondary: {
-      main: '#4D4D4D',
-    }
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: "3rem",
+          fontStyle: "italic",
+          color: "#E5E5E5",
+          background: '#FEFEFE'
+        },
+      },
+    },
   },
 });
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Typography variant="h1">
-        todos
-      </Typography>
+      <Stack
+        direction="column"
+        spacing={0}
+        sx={{
+          justifyContent: "center",
+          alignItems: "stretch",
+        }}
+      >
+        <Typography variant="h1">todos</Typography>
+        <TodoInput />
+      </Stack>
     </ThemeProvider>
   );
 }

@@ -16,18 +16,30 @@ const StyledCheckIcon = styled(CheckIcon)({
 });
 
 const TaskBox = styled(Box)<{ completed: boolean }>(({ completed }) => ({
-    display: "flex",
-    alignItems: "center",
-    padding: "10px",
-    border: "1px solid #E5E5E5",
-    background: "#FEFEFE",
-    color: completed ? "#E6E6E6" : "#4D4D4D", 
-    fontSize: "2.5rem",
-    fontFamily: "Roboto, sans-serif",
-    cursor: "pointer",
-    textDecoration: completed ? "line-through" : "none",
-    textDecorationThickness: completed ? "2px" : "0",
-  }));
+  display: "flex",
+  alignItems: "center",
+  padding: "10px",
+  border: "1px solid #E5E5E5",
+  background: "#FEFEFE",
+  color: completed ? "#E6E6E6" : "#4D4D4D",
+  fontSize: "2.5rem",
+  fontFamily: "Roboto, sans-serif",
+  cursor: "pointer",
+  textDecoration: completed ? "line-through" : "none",
+  textDecorationThickness: completed ? "2px" : "0",
+}));
+
+const FooterBox = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "start",
+  padding: "10px 30px",
+  border: "1px solid #E5E5E5",
+  background: "#FEFEFE",
+  color: "#7F7F7F",
+  fontSize: "1.2rem",
+  fontFamily: "Roboto, sans-serif",
+});
 
 const TodoInput: React.FC = () => {
   const [task, setTask] = useState<string>("");
@@ -57,6 +69,8 @@ const TodoInput: React.FC = () => {
     );
   };
 
+  const leftTasksCount = tasks.filter((task) => !task.completed).length;
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -83,13 +97,18 @@ const TodoInput: React.FC = () => {
         />
       </form>
       {tasks.map((t, index) => (
-        <TaskBox key={index} onClick={() => toggleTaskCompletion(index)} completed={t.completed}>
+        <TaskBox
+          key={index}
+          onClick={() => toggleTaskCompletion(index)}
+          completed={t.completed}
+        >
           <InputAdornment position="start">
             {t.completed ? <CheckMarkIcon /> : <GrayCircleIcon />}
           </InputAdornment>
           {t.text}
         </TaskBox>
       ))}
+      <FooterBox>{leftTasksCount} items left</FooterBox>
     </>
   );
 };

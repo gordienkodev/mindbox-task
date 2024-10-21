@@ -32,13 +32,18 @@ const TaskBox = styled(Box)<{ completed: boolean }>(({ completed }) => ({
 const FooterBox = styled(Box)({
   display: "flex",
   alignItems: "center",
-  justifyContent: "start",
+  justifyContent: "space-between",
   padding: "10px 30px",
   border: "1px solid #E5E5E5",
   background: "#FEFEFE",
   color: "#7F7F7F",
   fontSize: "1.2rem",
   fontFamily: "Roboto, sans-serif",
+});
+
+const Button = styled(Box)({
+  cursor: "pointer",
+  padding: "0 10px",
 });
 
 const TodoInput: React.FC = () => {
@@ -108,7 +113,21 @@ const TodoInput: React.FC = () => {
           {t.text}
         </TaskBox>
       ))}
-      <FooterBox>{leftTasksCount} items left</FooterBox>
+      <FooterBox>
+        <Box>{leftTasksCount} items left</Box>
+        <Box display="flex" alignItems="center">
+          <Button>All</Button>
+          <Button>Active</Button>
+          <Button>Completed</Button>
+        </Box>
+        <Box>
+          <Button
+            onClick={() => setTasks(tasks.filter((task) => !task.completed))}
+          >
+            Clear completed
+          </Button>
+        </Box>
+      </FooterBox>
     </>
   );
 };

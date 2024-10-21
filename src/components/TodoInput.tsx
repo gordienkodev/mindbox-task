@@ -41,18 +41,24 @@ const FooterBox = styled(Box)({
   fontFamily: "Roboto, sans-serif",
 });
 
-const Button = styled(Box)({
+const Button = styled(Box)<{ active?: boolean }>(({ active }) => ({
   cursor: "pointer",
   padding: "0 10px",
-});
+  border: active ? "1px solid #E5E5E5" : "none",
+  borderRadius: "4px",
+  color: active ? "#4D4D4D" : "#7F7F7F",
+  marginRight: "10px",
+}));
 
 const TodoInput: React.FC = () => {
   const [task, setTask] = useState<string>("");
   const [tasks, setTasks] = useState<{ text: string; completed: boolean }[]>([
     { text: "Тестовое задание", completed: false },
-    { text: "Прекрасный код", completed: false },
+    { text: "Прекрасный код", completed: true },
     { text: "Покрытие тестами", completed: false },
   ]);
+
+  const [filter, setFilter] = useState<string>("all");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTask(event.target.value);
@@ -75,6 +81,13 @@ const TodoInput: React.FC = () => {
   };
 
   const leftTasksCount = tasks.filter((task) => !task.completed).length;
+
+  const filteredTasks =
+    filter === "active"
+      ? tasks.filter((task) => !task.completed)
+      : filter === "completed"
+        ? tasks.filter((task) => task.completed)
+        : tasks;
 
   return (
     <>
@@ -101,7 +114,7 @@ const TodoInput: React.FC = () => {
           }}
         />
       </form>
-      {tasks.map((t, index) => (
+      {filteredTasks.map((t, index) => (
         <TaskBox
           key={index}
           onClick={() => toggleTaskCompletion(index)}
@@ -116,9 +129,21 @@ const TodoInput: React.FC = () => {
       <FooterBox>
         <Box>{leftTasksCount} items left</Box>
         <Box display="flex" alignItems="center">
-          <Button>All</Button>
-          <Button>Active</Button>
-          <Button>Completed</Button>
+          <Button active={filter === "all"} onClick={() => setFilter("all")}>
+            All
+          </Button>
+          <Button
+            active={filter === "active"}
+            onClick={() => setFilter("active")}
+          >
+            Active
+          </Button>
+          <Button
+            active={filter === "completed"}
+            onClick={() => setFilter("completed")}
+          >
+            Completed
+          </Button>
         </Box>
         <Box>
           <Button

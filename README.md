@@ -58,7 +58,9 @@ npm run build
 Ключевая на ваш взгляд функциональность обязательно покрыта тестами
 Проект должен запускаться командой npm i && npm run start
 Проект доступен на GitHub Pages/Vercel/etc.
- 
+
+ ![image](https://github.com/user-attachments/assets/23796fde-a43b-404b-a5ec-eb7d63bdbf42)
+
 
 
 

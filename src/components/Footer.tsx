@@ -1,4 +1,3 @@
-import React from "react";
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
@@ -14,7 +13,9 @@ const FooterBox = styled(Box)({
   fontFamily: "Roboto, sans-serif",
 });
 
-const Button = styled(Box)<{ active?: boolean }>(({ active }) => ({
+const Button = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'active',
+})<{ active?: boolean }>(({ active }) => ({
   cursor: "pointer",
   padding: "0 10px",
   border: active ? "1px solid #E5E5E5" : "none",

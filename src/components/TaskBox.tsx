@@ -1,7 +1,9 @@
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 
-const TaskBox = styled(Box)<{ completed: boolean }>(({ completed }) => ({
+const TaskBox = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'completed',
+})<{ completed: boolean }>(({ completed }) => ({
   display: "flex",
   alignItems: "center",
   padding: "10px",

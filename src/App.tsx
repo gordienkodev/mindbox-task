@@ -11,8 +11,8 @@ function App() {
         spacing={0}
         sx={{
           justifyContent: "center",
-          alignItems: "center", 
-          paddingX: "2%",
+          alignItems: "center",
+          paddingX: "5%",
         }}
       >
         <Typography variant="h1">todos</Typography>

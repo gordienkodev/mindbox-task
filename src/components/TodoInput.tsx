@@ -1,58 +1,18 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import TextField from "@mui/material/TextField";
-import CheckIcon from "@mui/icons-material/Check";
 import InputAdornment from "@mui/material/InputAdornment";
-import { styled } from "@mui/material/styles";
-import { Box } from "@mui/material";
-import CheckMarkIcon from "./CheckMarkIcon";
-import GrayCircleIcon from "./GrayCircleIcon";
+import Footer from "./Footer";
+import StyledCheckIcon from "./StyledCheckIcon";
+import TaskItem from "./TaskItem";
 
-const StyledCheckIcon = styled(CheckIcon)({
-  color: "#E6E6E6",
-  background: "#FEFEFE",
-  paddingRight: "10px",
-  paddingLeft: "10px",
-  fontSize: "3rem",
-});
-
-const TaskBox = styled(Box)<{ completed: boolean }>(({ completed }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: "10px",
-  border: "1px solid #E5E5E5",
-  background: "#FEFEFE",
-  color: completed ? "#E6E6E6" : "#4D4D4D",
-  fontSize: "2.5rem",
-  fontFamily: "Roboto, sans-serif",
-  cursor: "pointer",
-  textDecoration: completed ? "line-through" : "none",
-  textDecorationThickness: completed ? "2px" : "0",
-}));
-
-const FooterBox = styled(Box)({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "10px 30px",
-  border: "1px solid #E5E5E5",
-  background: "#FEFEFE",
-  color: "#7F7F7F",
-  fontSize: "1.2rem",
-  fontFamily: "Roboto, sans-serif",
-});
-
-const Button = styled(Box)<{ active?: boolean }>(({ active }) => ({
-  cursor: "pointer",
-  padding: "0 10px",
-  border: active ? "1px solid #E5E5E5" : "none",
-  borderRadius: "4px",
-  color: active ? "#4D4D4D" : "#7F7F7F",
-  marginRight: "10px",
-}));
+interface Task {
+  text: string;
+  completed: boolean;
+}
 
 const TodoInput: React.FC = () => {
   const [task, setTask] = useState<string>("");
-  const [tasks, setTasks] = useState<{ text: string; completed: boolean }[]>([
+  const [tasks, setTasks] = useState<Task[]>([
     { text: "Тестовое задание", completed: false },
     { text: "Прекрасный код", completed: true },
     { text: "Покрытие тестами", completed: false },
@@ -115,44 +75,19 @@ const TodoInput: React.FC = () => {
         />
       </form>
       {filteredTasks.map((t, index) => (
-        <TaskBox
+        <TaskItem
           key={index}
-          onClick={() => toggleTaskCompletion(index)}
+          text={t.text}
           completed={t.completed}
-        >
-          <InputAdornment position="start">
-            {t.completed ? <CheckMarkIcon /> : <GrayCircleIcon />}
-          </InputAdornment>
-          {t.text}
-        </TaskBox>
+          onToggleCompletion={() => toggleTaskCompletion(index)}
+        />
       ))}
-      <FooterBox>
-        <Box>{leftTasksCount} items left</Box>
-        <Box display="flex" alignItems="center">
-          <Button active={filter === "all"} onClick={() => setFilter("all")}>
-            All
-          </Button>
-          <Button
-            active={filter === "active"}
-            onClick={() => setFilter("active")}
-          >
-            Active
-          </Button>
-          <Button
-            active={filter === "completed"}
-            onClick={() => setFilter("completed")}
-          >
-            Completed
-          </Button>
-        </Box>
-        <Box>
-          <Button
-            onClick={() => setTasks(tasks.filter((task) => !task.completed))}
-          >
-            Clear completed
-          </Button>
-        </Box>
-      </FooterBox>
+      <Footer
+        leftTasksCount={leftTasksCount}
+        filter={filter}
+        setFilter={setFilter}
+        clearCompleted={() => setTasks(tasks.filter((task) => !task.completed))}
+      />
     </>
   );
 };

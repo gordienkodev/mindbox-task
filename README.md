@@ -16,7 +16,7 @@ Deploy: [https://mindbox-task-taupe.vercel.app/](https://mindbox-task-taupe.verc
 ## Setup and Running
 
 - Use `node 22.x` or higher.
-- Clone this repo: `$ git clone https://github.com/guz86/skilla-task.git`.
+- Clone this repo: `$ git clone https://github.com/gordienkodev/mindbox-task.git`.
 - Go to downloaded folder: `$ cd app`.
 - Install dependencies: `$ npm install`.
 - Start server: `$ npm run start`.

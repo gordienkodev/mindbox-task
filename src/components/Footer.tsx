@@ -1,5 +1,6 @@
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
+import { Filter } from "./types";
 
 const FooterBox = styled(Box)({
   display: "flex",
@@ -14,7 +15,7 @@ const FooterBox = styled(Box)({
 });
 
 const Button = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'active',
+  shouldForwardProp: (prop) => prop !== "active",
 })<{ active?: boolean }>(({ active }) => ({
   cursor: "pointer",
   padding: "0 10px",
@@ -26,23 +27,37 @@ const Button = styled(Box, {
 
 interface FooterProps {
   leftTasksCount: number;
-  filter: string;
-  setFilter: (filter: string) => void;
+  filter: Filter;
+  setFilter: (filter: Filter) => void;
   clearCompleted: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ leftTasksCount, filter, setFilter, clearCompleted }) => {
+const Footer: React.FC<FooterProps> = ({
+  leftTasksCount,
+  filter,
+  setFilter,
+  clearCompleted,
+}) => {
   return (
     <FooterBox>
       <Box>{leftTasksCount} items left</Box>
       <Box display="flex" alignItems="center">
-        <Button active={filter === "all"} onClick={() => setFilter("all")}>
+        <Button
+          active={filter === Filter.All}
+          onClick={() => setFilter(Filter.All)}
+        >
           All
         </Button>
-        <Button active={filter === "active"} onClick={() => setFilter("active")}>
+        <Button
+          active={filter === Filter.Active}
+          onClick={() => setFilter(Filter.Active)}
+        >
           Active
         </Button>
-        <Button active={filter === "completed"} onClick={() => setFilter("completed")}>
+        <Button
+          active={filter === Filter.Completed}
+          onClick={() => setFilter(Filter.Completed)}
+        >
           Completed
         </Button>
       </Box>

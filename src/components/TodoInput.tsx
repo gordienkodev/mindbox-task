@@ -4,21 +4,17 @@ import InputAdornment from "@mui/material/InputAdornment";
 import Footer from "./Footer";
 import StyledCheckIcon from "./StyledCheckIcon";
 import TaskItem from "./TaskItem";
-
-interface Task {
-  text: string;
-  completed: boolean;
-}
+import { Filter, iTask } from "./types";
 
 const TodoInput: React.FC = () => {
   const [task, setTask] = useState<string>("");
-  const [tasks, setTasks] = useState<Task[]>([
+  const [tasks, setTasks] = useState<iTask[]>([
     { text: "Тестовое задание", completed: false },
     { text: "Прекрасный код", completed: true },
     { text: "Покрытие тестами", completed: false },
   ]);
 
-  const [filter, setFilter] = useState<string>("all");
+  const [filter, setFilter] = useState<Filter>(Filter.All);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTask(event.target.value);
@@ -43,9 +39,9 @@ const TodoInput: React.FC = () => {
   const leftTasksCount = tasks.filter((task) => !task.completed).length;
 
   const filteredTasks =
-    filter === "active"
+    filter === Filter.Active
       ? tasks.filter((task) => !task.completed)
-      : filter === "completed"
+      : filter === Filter.Completed
         ? tasks.filter((task) => task.completed)
         : tasks;
 

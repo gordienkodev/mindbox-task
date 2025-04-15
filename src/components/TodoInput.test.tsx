@@ -37,4 +37,19 @@ describe("TodoInput", () => {
 
     expect(screen.queryByText("Тестовое задание")).not.toBeInTheDocument();
   });
+
+  test("does not add an empty task", () => {
+    render(<TodoInput />);
+    const input = screen.getByPlaceholderText("What needs to be done?");
+    const initialTaskCount = screen.queryAllByRole("listitem").length;
+  
+    fireEvent.change(input, { target: { value: "" } });
+    fireEvent.submit(input.closest("form")!);
+    expect(screen.queryAllByRole("listitem").length).toBe(initialTaskCount);
+  
+    fireEvent.change(input, { target: { value: "   " } });
+    fireEvent.submit(input.closest("form")!);
+    expect(screen.queryAllByRole("listitem").length).toBe(initialTaskCount);
+  });
+
 });

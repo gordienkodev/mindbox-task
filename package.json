@@ -1,12 +1,12 @@
 {
-  "name": "my-vue-app",
+  "name": "react-todo-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "start": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "eslint src",
     "preview": "vite preview",
     "test": "jest",
     "test:coverage": "jest --coverage"
@@ -17,7 +17,6 @@
     "@fontsource/roboto": "^5.1.0",
     "@mui/icons-material": "^6.1.4",
     "@mui/material": "^6.1.4",
-    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

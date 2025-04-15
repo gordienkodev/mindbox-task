@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Footer from "./Footer";
 import "@testing-library/jest-dom";
+import { Filter } from "./types";
 
 describe("Footer", () => {
   const mockSetFilter = jest.fn();
@@ -10,7 +11,7 @@ describe("Footer", () => {
     render(
       <Footer
         leftTasksCount={3}
-        filter="all"
+        filter={Filter.All}
         setFilter={mockSetFilter}
         clearCompleted={mockClearCompleted}
       />
